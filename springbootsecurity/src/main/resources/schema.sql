@@ -1,0 +1,1 @@
+create table account(account_name varchar(20),password varchar(20));

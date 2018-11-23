@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+<bean id="instrumentalist" class="com.cts.training.aop.Instrumentalist"></bean>
+<bean id="audience" class="com.cts.training.aop.Audience"></bean>
+
+<aop:config>
+<aop:pointcut 
+expression="execution(* com.cts.training.aop.Instrumentalist.play())" 
+	id="playPointcut"/>
+<aop:aspect ref="audience">
+<aop:before method="takeSeats" pointcut-ref="playPointcut"/>
+<aop:before method="switchOffMobilePhones" pointcut-ref="playPointcut"/>
+<aop:after-returning method="applaud" pointcut-ref="playPointcut"/>
+</aop:aspect>
+</aop:config>
+
+</beans>
